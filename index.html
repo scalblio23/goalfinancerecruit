@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GOAL Finance | Broker Growth Accelerator</title>
+  <meta name="description" content="GOAL Finance – Australia's First Broker Growth Accelerator Platform. We build your business, not just your loan book.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ecedef;
+      --card: #ffffff;
+      --text: #0b0b0b;
+      --muted: #6b6f76;
+      --line: #d9dbe0;
+      --track: #eceef1;
+      --accent: #13a072;
+      --accent-dark: #0f8a62;
+      --error: #d43c3c;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 72px 16px 40px;
+    }
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 14px;
+      margin-bottom: 48px;
+    }
+    .logo span { color: var(--muted); font-weight: 600; letter-spacing: 0.2em; font-size: 10px; display: block; text-align: center; }
+    h1 {
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.1;
+      font-weight: 800;
+      text-align: center;
+      max-width: 900px;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .tag {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    .intro {
+      margin: 36px 0 40px;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.4;
+      max-width: 380px;
+    }
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 34px 34px 34px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+    }
+    .step-label {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .progress {
+      height: 5px;
+      background: var(--track);
+      border-radius: 99px;
+      margin: 14px 0 34px;
+      overflow: hidden;
+    }
+    .progress > div {
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width 0.35s ease;
+    }
+    .q { font-size: 21px; font-weight: 700; margin: 0 0 8px; }
+    .hint { color: var(--muted); font-size: 14px; margin: 0 0 20px; line-height: 1.5; }
+    .q + .field, .q + .options { margin-top: 20px; }
+    input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%;
+      font: inherit;
+      font-size: 17px;
+      padding: 16px 20px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      outline: none;
+      color: var(--text);
+      transition: border-color 0.15s;
+    }
+    input::placeholder { color: #9a9ea6; }
+    input:focus { border-color: var(--accent); }
+    .field + .field { margin-top: 12px; }
+    .options { display: grid; gap: 10px; }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      background: #fff;
+      padding: 15px 18px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .option:hover { border-color: var(--accent); }
+    .option .box {
+      flex: none;
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--line);
+      border-radius: 50%;
+      display: grid; place-items: center;
+    }
+    .options.multi .box { border-radius: 5px; }
+    .option.selected { border-color: var(--accent); background: #f1faf6; }
+    .option.selected .box { background: var(--accent); border-color: var(--accent); }
+    .option.selected .box::after {
+      content: ""; width: 6px; height: 10px;
+      border: solid #fff; border-width: 0 2px 2px 0;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 18px;
+      font: inherit;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: var(--accent-dark); }
+    .btn:disabled { opacity: 0.6; cursor: default; }
+    .back {
+      display: inline-block;
+      margin-top: 14px;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+    }
+    .back:hover { color: var(--text); }
+    .error { color: var(--error); font-size: 13px; margin-top: 10px; min-height: 1em; }
+    .done { text-align: center; }
+    .done .tick {
+      width: 64px; height: 64px; margin: 4px auto 20px;
+      border-radius: 50%; background: var(--accent);
+      display: grid; place-items: center;
+    }
+    .done .tick::after {
+      content: ""; width: 14px; height: 26px;
+      border: solid #fff; border-width: 0 4px 4px 0;
+      transform: rotate(45deg) translate(-2px, -3px);
+    }
+    .done ul {
+      text-align: left;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      font-size: 15px;
+    }
+    .done li { padding-left: 26px; position: relative; line-height: 1.45; }
+    .done li::before {
+      content: ""; position: absolute; left: 4px; top: 4px;
+      width: 5px; height: 10px; border: solid var(--accent); border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .proof { margin-top: 26px; font-size: 14px; font-weight: 500; color: #4a4e55; text-align: center; }
+    footer { margin-top: 48px; font-size: 12px; color: #9a9ea6; text-align: center; }
+    .step { animation: fade 0.25s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 520px) {
+      body { padding-top: 40px; }
+      .logo { margin-bottom: 32px; }
+      .intro { font-size: 16px; margin: 28px 0 28px; }
+      .card { padding: 26px 20px; }
+      .q { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">GOAL<span>FINANCE</span></div>
+
+  <h1>We build your business, not just your loan book</h1>
+  <div class="tag">Australia's First Broker Growth Accelerator Platform</div>
+
+  <p class="intro">Answer a few quick questions to see if the GOAL Broker Success System is right for you.</p>
+
+  <main class="card">
+    <div class="step-label" id="stepLabel">Step 1 of 7</div>
+    <div class="progress"><div id="bar"></div></div>
+    <form id="survey" novalidate></form>
+  </main>
+
+  <p class="proof">Join brokers across Adelaide, Sydney, Melbourne &amp; Queensland growing with GOAL.</p>
+
+  <footer>&copy; <span id="year"></span> GOAL Finance. All Rights Reserved.</footer>
+
+  <script>
+    // Optional: set to a webhook (e.g. Make / Zapier / CRM) to receive submissions as JSON.
+    const SUBMIT_URL = "";
+
+    const steps = [
+      {
+        id: "firstName",
+        type: "text",
+        question: "Hey! What's your name?",
+        placeholder: "Your first name",
+        autocomplete: "given-name"
+      },
+      {
+        id: "stage",
+        type: "single",
+        question: "Where are you at in your broking career?",
+        options: [
+          "Established broker (2+ years)",
+          "Newer broker (under 2 years)",
+          "Looking to become a broker",
+          "Running a brokerage with a team"
+        ]
+      },
+      {
+        id: "challenges",
+        type: "multi",
+        question: "What's holding your business back?",
+        hint: "Most brokers are trying to find leads, build websites, post on social, write content, manage databases, chase reviews, process loans and recruit staff. No wonder they burn out. Select all that apply.",
+        options: [
+          "Inconsistent lead generation",
+          "Little or no social media presence",
+          "No database or CRM to nurture clients",
+          "Too much admin, not enough time",
+          "Compliance and lodgement workload",
+          "Feeling burnt out doing it all myself"
+        ]
+      },
+      {
+        id: "help",
+        type: "multi",
+        question: "What would you like GOAL to take off your plate?",
+        hint: "You focus on helping clients. We'll help build your business. Select all that apply.",
+        options: [
+          "Leads – first home buyer, refinance, investment, commercial & asset finance",
+          "Personal brand – content, video, graphics, websites & landing pages",
+          "Socials – Instagram, TikTok, Facebook, LinkedIn & more",
+          "CRM, email & SMS automation, AI assistant & booking systems",
+          "Lodgement, compliance & assessment support",
+          "Sales & loan training, plus referral agreements set up for you"
+        ]
+      },
+      {
+        id: "timeframe",
+        type: "single",
+        question: "When are you looking to make a move?",
+        options: [
+          "Right now",
+          "In the next 3 months",
+          "In the next 6–12 months",
+          "Just exploring my options"
+        ]
+      },
+      {
+        id: "email",
+        type: "email",
+        question: "Great {firstName}! What's your best email?",
+        placeholder: "you@example.com",
+        autocomplete: "email"
+      },
+      {
+        id: "phone",
+        type: "tel",
+        question: "And your mobile number?",
+        hint: "A GOAL team member will call to walk you through the Broker Success System.",
+        placeholder: "04xx xxx xxx",
+        autocomplete: "tel"
+      }
+    ];
+
+    const answers = {};
+    let current = 0;
+
+    const form = document.getElementById("survey");
+    const bar = document.getElementById("bar");
+    const stepLabel = document.getElementById("stepLabel");
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const fill = s => s.replace(/\{(\w+)\}/g, (_, k) => answers[k] || "");
+
+    function render() {
+      const step = steps[current];
+      stepLabel.textContent = `Step ${current + 1} of ${steps.length}`;
+      bar.style.width = `${(current / steps.length) * 100}%`;
+
+      let body = `<p class="q">${esc(fill(step.question))}</p>`;
+      if (step.hint) body += `<p class="hint">${esc(step.hint)}</p>`;
+
+      if (step.options) {
+        const chosen = [].concat(answers[step.id] || []);
+        body += `<div class="options ${step.type}" role="${step.type === "multi" ? "group" : "radiogroup"}">` +
+          step.options.map(o => `<button type="button" class="option${chosen.includes(o) ? " selected" : ""}" data-value="${esc(o)}" aria-pressed="${chosen.includes(o)}"><span class="box"></span>${esc(o)}</button>`).join("") +
+          `</div>`;
+      } else {
+        body += `<div class="field"><input id="input" type="${step.type}" name="${step.id}" placeholder="${esc(step.placeholder)}" autocomplete="${step.autocomplete}" value="${esc(answers[step.id] || "")}"></div>`;
+      }
+
+      body += `<div class="error" id="error"></div>`;
+      if (step.type !== "single") {
+        body += `<button type="submit" class="btn">${current === steps.length - 1 ? "Submit" : "Continue"}</button>`;
+      }
+      if (current > 0) body += `<button type="button" class="back" id="back">&larr; Back</button>`;
+
+      form.innerHTML = `<div class="step">${body}</div>`;
+
+      const input = document.getElementById("input");
+      if (input) input.focus();
+
+      form.querySelectorAll(".option").forEach(btn => btn.addEventListener("click", () => {
+        const value = btn.dataset.value;
+        if (step.type === "single") {
+          answers[step.id] = value;
+          form.querySelectorAll(".option").forEach(b => b.classList.toggle("selected", b === btn));
+          setTimeout(next, 180);
+        } else {
+          const list = new Set(answers[step.id] || []);
+          list.has(value) ? list.delete(value) : list.add(value);
+          answers[step.id] = [...list];
+          btn.classList.toggle("selected");
+          btn.setAttribute("aria-pressed", btn.classList.contains("selected"));
+        }
+      }));
+
+      const back = document.getElementById("back");
+      if (back) back.addEventListener("click", () => { current--; render(); });
+    }
+
+    function validate(step) {
+      const input = document.getElementById("input");
+      if (input) answers[step.id] = input.value.trim();
+      const v = answers[step.id];
+      if (step.type === "multi") return v && v.length ? "" : "Please select at least one option.";
+      if (!v) return "This field is required.";
+      if (step.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Please enter a valid email address.";
+      if (step.type === "tel" && v.replace(/\D/g, "").length < 8) return "Please enter a valid phone number.";
+      return "";
+    }
+
+    function next() {
+      const err = validate(steps[current]);
+      if (err) { document.getElementById("error").textContent = err; return; }
+      if (current < steps.length - 1) { current++; render(); } else { submit(); }
+    }
+
+    async function submit() {
+      const btn = form.querySelector(".btn");
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+      if (SUBMIT_URL) {
+        try {
+          await fetch(SUBMIT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...answers, source: location.href, submittedAt: new Date().toISOString() })
+          });
+        } catch (e) {
+          btn.disabled = false;
+          btn.textContent = "Submit";
+          document.getElementById("error").textContent = "Something went wrong. Please try again.";
+          return;
+        }
+      }
+      showDone();
+    }
+
+    function showDone() {
+      stepLabel.textContent = "Complete";
+      bar.style.width = "100%";
+      form.innerHTML = `
+        <div class="step done">
+          <div class="tick"></div>
+          <p class="q">Thanks ${esc(answers.firstName)}, you're in!</p>
+          <p class="hint">A GOAL team member will be in touch shortly. GOAL is not just a brokerage, not just an aggregator, not just training – it's a complete Broker Success System:</p>
+          <ul>
+            <li>Lead generation &amp; funnels built and run for you</li>
+            <li>Personal brand, content &amp; professional media studio</li>
+            <li>CRM, automated follow-up, AI assistant &amp; booking systems</li>
+            <li>Lodgement, compliance &amp; assessment support</li>
+            <li>Sales &amp; loan training specialists, Australia-wide team</li>
+          </ul>
+        </div>`;
+    }
+
+    form.addEventListener("submit", e => { e.preventDefault(); next(); });
+    render();
+  </script>
+</body>
+</html>
